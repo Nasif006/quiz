@@ -24,6 +24,12 @@ const routes =  [
     alias: "/quizz",
     name: "quiz",
     component: () => import("./components/Quiz")
+  },
+  {
+    path: "/history",
+    alias: "/quizzhistorypage",
+    name: "history",
+    component: () => import("./components/QuizHistoryPage")
   }
 ];
 
