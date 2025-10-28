@@ -86,7 +86,7 @@ export default {
   name: "Dashboard",
   data() {
     return {
-      username: "John Doe", // Replace with logged-in user data
+      username: JSON.parse(sessionStorage.getItem('student')).name, // Replace with logged-in user data
       recentResults: [
         { id: 1, date: "Oct 20, 2025", score: 85, passed: true },
         { id: 2, date: "Oct 18, 2025", score: 60, passed: false },
@@ -103,6 +103,8 @@ export default {
     viewResult(id) {
       this.$router.push(`/result/${id}`);
     },
-  },
+  },mounted() {
+    
+  }
 };
 </script>
