@@ -7,6 +7,12 @@ class DataService {
   login(data) {
     return http.post("/student/login", data);
   }
+  QuizList() {
+    return http.get(`/quiz`);
+  }
+  getQuestion(qid) {
+    return http.get(`/quiz-attempt/questions?quiz_id=${qid}`);
+  }
   
 }
 

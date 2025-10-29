@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import DataService from "../services/DataService";
 export default {
   name: "QuizPage",
   data() {
@@ -105,9 +106,19 @@ export default {
     };
   },
   mounted() {
+    this.getQuestion();
     this.startTimer();
   },
   methods: {
+    getQuestion(){
+      DataService.getQuestion(this.$route.query.qid)
+      .then(response => {
+        console.log(response.data);
+        this.questions = response.data.questions;
+      }).catch(e => {
+        console.log(e);
+      });
+    },
     startTimer() {
       const timer = setInterval(() => {
         if (this.timeLeft > 0) this.timeLeft--;
@@ -120,11 +131,13 @@ export default {
     submitQuiz() {
       // Calculate results
       const results = this.questions.map((q) => ({
-        question: q.question,
+        question: q.id,
         selected: this.userAnswers[q.id],
         correct: q.correct,
         isCorrect: q.correct === this.userAnswers[q.id],
       }));
+
+      
 
       const totalCorrect = results.filter((r) => r.isCorrect).length;
       const score = Math.round((totalCorrect / this.questions.length) * 100);
