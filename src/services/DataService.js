@@ -13,6 +13,12 @@ class DataService {
   getQuestion(qid) {
     return http.get(`/quiz-attempt/questions?quiz_id=${qid}`);
   }
+  getQuizAttempt() {
+    return http.get(`/quiz-attempt/get_score`);
+  }
+  saveQuizAnswer(data){
+    return http.post("/quiz-attempt/store", data);
+  }
   
 }
 

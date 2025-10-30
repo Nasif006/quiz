@@ -56,14 +56,14 @@
             </thead>
             <tbody>
               <tr v-for="(quiz, index) in recentResults" :key="index">
-                <td>{{ quiz.date }}</td>
+                <td>{{ quiz.started_at }}</td>
                 <td>{{ quiz.score }}%</td>
                 <td>
                   <span
                     class="badge"
-                    :class="quiz.passed ? 'bg-success' : 'bg-danger'"
+                    :class="quiz.score > 50 ? 'bg-success' : 'bg-danger'"
                   >
-                    {{ quiz.passed ? 'Passed' : 'Failed' }}
+                    {{ quiz.score > 50 ? 'Passed' : 'Failed' }}
                   </span>
                 </td>
                 <td>
@@ -82,18 +82,25 @@
 </template>
 
 <script>
+import DataService from "../services/DataService";
 export default {
   name: "Dashboard",
   data() {
     return {
       username: JSON.parse(sessionStorage.getItem('student')).name, // Replace with logged-in user data
-      recentResults: [
-        { id: 1, date: "Oct 20, 2025", score: 85, passed: true },
-        { id: 2, date: "Oct 18, 2025", score: 60, passed: false },
-      ],
+      recentResults: [],
     };
   },
   methods: {
+    getQuizAttempt(){
+      DataService.getQuizAttempt()
+      .then(response => {
+        console.log(response.data);
+        this.recentResults = response.data;
+      }).catch(e => {
+        console.log(e);
+      });
+    },
     startNewQuiz() {
       this.$router.push("/waitingpage");
     },
@@ -104,7 +111,7 @@ export default {
       this.$router.push(`/result/${id}`);
     },
   },mounted() {
-    
+    this.getQuizAttempt();
   }
 };
 </script>

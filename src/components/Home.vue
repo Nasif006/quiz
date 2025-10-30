@@ -187,8 +187,11 @@
 <script>
 export default {
   name: 'Home',
-  props: {
-    msg: String
+  data(){
+    
+  },
+  method:{
+
   }
 }
 </script>

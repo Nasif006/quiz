@@ -137,18 +137,29 @@ export default {
         isCorrect: q.correct === this.userAnswers[q.id],
       }));
 
-      
 
       const totalCorrect = results.filter((r) => r.isCorrect).length;
       const score = Math.round((totalCorrect / this.questions.length) * 100);
+      const storeData={
+        "quiz_id":this.$route.query.qid,
+        "answers":results,
+      };
 
+      DataService.saveQuizAnswer(storeData)
+        .then(response => {
+          console.log(response)
+          this.$router.push({
+            name: "dashboard",
+            query: { score },
+          });
+        }).catch(e => {
+          console.log(e);
+        });
+      
       console.log("Results:", results, "Score:", score);
 
       // Redirect to result or dashboard
-      this.$router.push({
-        name: "dashboard",
-        query: { score },
-      });
+      
     },
   },
 };
