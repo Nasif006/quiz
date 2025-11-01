@@ -36,7 +36,13 @@ const routes =  [
     alias: "/quizzhistorypage",
     name: "history",
     component: () => import("./components/QuizHistoryPage")
+  },
+  {
+  path: "/quiz/review/:id",
+  name: "quizReview",
+  component: () => import("./components/QuizReviewPage.vue"),
   }
+
 ];
 
 const router = createRouter({

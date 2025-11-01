@@ -19,6 +19,11 @@ class DataService {
   saveQuizAnswer(data){
     return http.post("/quiz-attempt/store", data);
   }
+  // Get detailed attempt for one quiz
+  getQuizAttemptDetail(quizId) {
+    return http.get(`/quiz/${quizId}/attempt`);
+  }
+
   
 }
 

@@ -108,8 +108,9 @@ export default {
       this.$router.push("/history");
     },
     viewResult(id) {
-      this.$router.push(`/result/${id}`);
-    },
+    this.$router.push({ name: "quizReview", params: { id } });
+    }
+
   },mounted() {
     this.getQuizAttempt();
   }
