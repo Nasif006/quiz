@@ -35,15 +35,17 @@ export default {
       qid:0
     };
   },methods: {
-    getQuiz(){
-      DataService.QuizList()
-      .then(response => {
-        console.log(response.data);
-        this.quiz = response.data;
-      }).catch(e => {
-        console.log(e);
-      });
-    },
+    getQuiz() {
+    DataService.QuizList()
+    .then(response => {
+      console.log(response.data);
+      // Only include quizzes where publish === 1 or true
+      this.quiz = response.data.filter(q => q.published === 1 || q.published === true);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  },
     goToQuiz() {
       this.$router.push({ name: 'quiz', query: { qid: this.qid } });
     }
